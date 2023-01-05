@@ -24,8 +24,8 @@ import java.util.*;
  *     输入：nums = [5,4,-1,7,8]
  *     输出：23
  * </pre>
+ *
  * @see <a href="https://leetcode.cn/problems/maximum-subarray/">最大子数组和</a>
- * @author yaogang@axzo.cn
  * @since 2023/1/4 10:43
  */
 public class Solution_53 {
