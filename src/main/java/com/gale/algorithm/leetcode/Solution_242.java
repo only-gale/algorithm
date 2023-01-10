@@ -1,6 +1,5 @@
 package com.gale.algorithm.leetcode;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,10 +34,8 @@ public class Solution_242 {
             return false;
         }
 
-        Map<Integer, Integer> sIndex = new HashMap<>();
-        Map<Integer, Integer> tIndex = new HashMap<>();
-        mapIndex(s, sIndex);
-        mapIndex(t, tIndex);
+        Map<Integer, Integer> sIndex = Util.mapIndex(s);
+        Map<Integer, Integer> tIndex = Util.mapIndex(t);
 
         for (Map.Entry<Integer, Integer> e : sIndex.entrySet()) {
             if (!Objects.equals(tIndex.getOrDefault(e.getKey(), 0), e.getValue())) {
@@ -46,13 +43,6 @@ public class Solution_242 {
             }
         }
         return true;
-    }
-
-    public void mapIndex(String s, Map<Integer, Integer> index) {
-        for (int i = 0; i < s.length(); i++) {
-            int c = s.charAt(i);
-            index.put(c, index.getOrDefault(c, 0) + 1);
-        }
     }
 
     public static void main(String[] args) {

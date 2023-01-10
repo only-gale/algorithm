@@ -94,21 +94,7 @@ public class Solution_51 {
     public static void printSolved(List<List<List<String>>> solved) {
         for (int i = 0; i < solved.size(); i++) {
             System.out.printf("第%d种方案\n", i+1);
-            printBoard(solved.get(i));
-            System.out.println();
-        }
-    }
-
-    public static void printBoard(List<List<String>> board) {
-        for (List<String> line : board) {
-            for (int i = 0; i < line.size(); i++) {
-                String s = line.get(i);
-                if (i == (line.size() - 1)) {
-                    System.out.print(s);
-                } else {
-                    System.out.printf("%s ", s);
-                }
-            }
+            Util.printBoard(solved.get(i));
             System.out.println();
         }
     }

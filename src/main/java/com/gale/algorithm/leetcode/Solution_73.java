@@ -49,8 +49,10 @@ public class Solution_73 {
     public static void main(String[] args) {
         int[][] matrix = {{1,1,1}, {1,0,1}, {1,1,1}};
         Solution_73 solution73 = new Solution_73();
-        Solution_566.printBoard(matrix);
+        System.out.println("before:");
+        Util.printBoard(matrix);
         solution73.setZeroes(matrix);
-        Solution_566.printBoard(matrix);
+        System.out.println("\nafter:");
+        Util.printBoard(matrix);
     }
 }

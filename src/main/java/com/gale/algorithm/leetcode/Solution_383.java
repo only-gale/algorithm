@@ -1,6 +1,5 @@
 package com.gale.algorithm.leetcode;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -35,10 +34,8 @@ public class Solution_383 {
         if (magazine.length() < ransomNote.length()) {
             return false;
         }
-        Map<Integer, Integer> ransomNoteIndex = new HashMap<>();
-        Map<Integer, Integer> magazineIndex = new HashMap<>();
-        mapIndex(ransomNote, ransomNoteIndex);
-        mapIndex(magazine, magazineIndex);
+        Map<Integer, Integer> ransomNoteIndex = Util.mapIndex(ransomNote);
+        Map<Integer, Integer> magazineIndex = Util.mapIndex(magazine);
 
         for (Map.Entry<Integer, Integer> e : ransomNoteIndex.entrySet()) {
             if (magazineIndex.getOrDefault(e.getKey(), 0) < e.getValue()) {
@@ -46,13 +43,6 @@ public class Solution_383 {
             }
         }
         return true;
-    }
-
-    public void mapIndex(String s, Map<Integer, Integer> index) {
-        for (int i = 0; i < s.length(); i++) {
-            int c = s.charAt(i);
-            index.put(c, index.getOrDefault(c, 0) + 1);
-        }
     }
 
     public static void main(String[] args) {

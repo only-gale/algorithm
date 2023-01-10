@@ -23,7 +23,7 @@ import java.util.*;
 public class Solution_350 {
     public static int[] intersect(int[] nums1, int[] nums2) {
         // 任意一个数组为空，交集都为空
-        if (isEmpty(nums1) || isEmpty(nums2)) {
+        if (Util.isArrayEmpty(nums1) || Util.isArrayEmpty(nums2)) {
             return new int[]{};
         }
 
@@ -53,10 +53,6 @@ public class Solution_350 {
         }
         // 转换结果列表为整数数组
         return rs.stream().mapToInt(n -> n).toArray();
-    }
-
-    private static boolean isEmpty(int[] nums) {
-        return nums == null || nums.length == 0;
     }
 
     public static void main(String[] args) {

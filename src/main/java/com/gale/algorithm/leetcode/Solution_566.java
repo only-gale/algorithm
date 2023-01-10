@@ -30,27 +30,13 @@ public class Solution_566 {
         return ans;
     }
 
-    public static void printBoard(int[][] board) {
-        for (int[] line : board) {
-            for (int i = 0; i < line.length; i++) {
-                int s = line[i];
-                if (i == (line.length - 1)) {
-                    System.out.print(s);
-                } else {
-                    System.out.printf("%d ", s);
-                }
-            }
-            System.out.println();
-        }
-    }
-
     public static void main(String[] args) {
         int[][] mat = {{1,2}, {3,4}};
-        System.out.println("origin: ");
-        printBoard(mat);
+        System.out.println("before: ");
+        Util.printBoard(mat);
         int r = 1, c = 4;
         int[][] ans = matrixReshape(mat, r, c);
         System.out.println("\nafter: ");
-        printBoard(ans);
+        Util.printBoard(ans);
     }
 }
