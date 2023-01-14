@@ -36,7 +36,7 @@ import java.util.Stack;
  */
 public class Solution_20 {
     public boolean isValid(String s) {
-        Map<Character, Character> index = new HashMap<>(){{
+        Map<Character, Character> index = new HashMap<Character, Character>(){{
             put('(', ')');
             put('[', ']');
             put('{', '}');
