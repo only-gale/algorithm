@@ -1,9 +1,6 @@
 package com.gale.algorithm.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 工具类
@@ -105,5 +102,60 @@ public class Util {
             ans[i] = list.get(i);
         }
         return ans;
+    }
+
+    /**
+     * 根据元素数组还原树
+     * @param nums 元素数组
+     */
+    public static TreeNode assemble(Integer[] nums) {
+        return assembleFromLevelOrder(nums);
+    }
+
+    /**
+     * 根据层序遍历结果数组还原树
+     * @param nums 层序遍历结果数组
+     */
+    public static TreeNode assembleFromLevelOrder(Integer[] nums) {
+        if (nums == null || nums.length == 0 || nums[0] == null) {
+            return null;
+        }
+        List<TreeNode> treeNodes = new ArrayList<>();
+        for (Integer num : nums) {
+            treeNodes.add(num == null ? null : new TreeNode(num));
+        }
+        int depth = 0, l = nums.length, parentLvlStart = 0, parentLvlMax, parentLvlEnd, childrenLvlStart, childrenLvlMax, childrenLvlEnd;
+        while (l >= (childrenLvlMax = 1 << (depth + 1))) {
+            parentLvlMax = 1 << depth;
+            parentLvlEnd = Math.min(parentLvlStart + parentLvlMax - 1, l - 1);
+            childrenLvlStart = parentLvlEnd + 1;
+            childrenLvlEnd = Math.min(childrenLvlStart + childrenLvlMax - 1, l - 1);
+            int idx = 0;
+            for (int i = parentLvlStart; i <= parentLvlEnd; i++) {
+                TreeNode parent = treeNodes.get(i), child;
+                if (parent == null) {
+                    continue;
+                }
+                int lIdx, rIdx;
+                if ((lIdx = childrenLvlStart + idx++) <= childrenLvlEnd && Objects.nonNull(child = treeNodes.get(lIdx))) {
+                    parent.left = child;
+                }
+                if ((rIdx = childrenLvlStart + idx++) <= childrenLvlEnd && Objects.nonNull(child = treeNodes.get(rIdx))) {
+                    parent.right = child;
+                }
+            }
+            depth++;
+            parentLvlStart = childrenLvlStart;
+        }
+        return treeNodes.get(0);
+    }
+
+    /**
+     * 按照层序遍历顺序打印树
+     */
+    public static void printTreeAsLevelOrder(TreeNode root) {
+        Solution_102 solution102 = new Solution_102();
+        List<List<Integer>> levelOrder = solution102.levelOrder(root);
+        System.out.println(levelOrder);
     }
 }

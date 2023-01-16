@@ -40,4 +40,16 @@ public class Solution_144 {
         }
         return result;
     }
+
+    public static void main(String[] args) {
+        Integer[] nums = {1, null, 2, 3};
+        TreeNode root = Util.assemble(nums);
+        Solution_144 solution144 = new Solution_144();
+        System.out.println("前序遍历：");
+        System.out.println(solution144.preorderTraversal(root));
+        System.out.println("中序遍历：");
+        System.out.println(solution144.inorderTraversal(root));
+        System.out.println("后序遍历：");
+        System.out.println(solution144.postorderTraversal(root));
+    }
 }
