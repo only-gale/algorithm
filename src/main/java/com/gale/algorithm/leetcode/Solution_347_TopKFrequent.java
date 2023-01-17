@@ -10,6 +10,8 @@ import java.util.*;
  *     输入: nums = [1,1,1,2,2,3], k = 2
  *     输出: [1,2]
  * </pre>
+ *
+ * @see <a href="https://leetcode.cn/problems/top-k-frequent-elements/">前 K 个高频元素</a>
  * @since 2022/9/5 14:51
  */
 public class Solution_347_TopKFrequent {
@@ -41,8 +43,8 @@ public class Solution_347_TopKFrequent {
             if(left <= 0) {
                 break;
             }
-            List<Integer> bucket = freq2nums.getOrDefault(freqOrder[j], new ArrayList<Integer>());
-            int sz = bucket.size(), addedSize = 0;
+            List<Integer> bucket = freq2nums.getOrDefault(freqOrder[j], new ArrayList<>());
+            int sz = bucket.size(), addedSize;
             boolean added;
             if(sz == 0) {
                 continue;
