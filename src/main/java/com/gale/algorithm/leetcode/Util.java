@@ -7,6 +7,11 @@ import java.util.*;
  * @since 2023/1/10 10:46
  */
 public class Util {
+
+    /**
+     * 映射s中字符及其频率
+     * @param s 字符串
+     */
     public static Map<Integer, Integer> mapIndex(String s) {
         if (isStringEmpty(s)) {
             return new HashMap<>();
@@ -17,6 +22,18 @@ public class Util {
             index.put(c, index.getOrDefault(c, 0) + 1);
         }
         return index;
+    }
+
+    /**
+     * 映射nums中数字及其频率
+     * @param nums 整数数组
+     */
+    public static Map<Integer, Integer> mapIndex(int[] nums) {
+        Map<Integer, Integer> num2freq = new HashMap<>();
+        for (int value : nums) {
+            num2freq.put(value, num2freq.getOrDefault(value, 0) + 1);
+        }
+        return num2freq;
     }
 
     public static boolean isStringEmpty(String str) {

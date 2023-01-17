@@ -23,10 +23,7 @@ public class Solution_347_TopKFrequent {
         if(k >= len) {
             return nums;
         }
-        Map<Integer, Integer> num2freq = new HashMap<>();
-        for (int value : nums) {
-            num2freq.put(value, num2freq.getOrDefault(value, 0) + 1);
-        }
+        Map<Integer, Integer> num2freq = Util.mapIndex(nums);
         Map<Integer, List<Integer>> freq2nums = new HashMap<>();
         int[] freqOrder = new int[len + 1];
         for (Map.Entry<Integer, Integer> en : num2freq.entrySet()) {
