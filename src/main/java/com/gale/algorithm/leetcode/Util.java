@@ -175,4 +175,13 @@ public class Util {
         List<List<Integer>> levelOrder = solution102.levelOrder(root);
         System.out.println(levelOrder);
     }
+
+    public static void swap(int[] nums, int i, int j) {
+        if (nums == null || nums.length == 0 || i == j || i < 0 || j < 0 || i >= nums.length || j >= nums.length) {
+            return;
+        }
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
 }

@@ -46,35 +46,37 @@ public class Solution_15 {
         return nSum(nums, 3, 0);
     }
 
-    private List<List<Integer>> nSum(int[] nums, int k, int target) {
+    public List<List<Integer>> nSum(int[] nums, int k, int target) {
         List<List<Integer>> ans = new ArrayList<>();
         if (nums.length < k) {
             return ans;
         }
 
+        Arrays.sort(nums);
+
         if (nums.length == k) {
-            List<Integer> combo = new ArrayList<>(k);
-            for (int n : nums) {
-                combo.add(n);
+            if (canBeCalculated(nums, 0, k, target)) {
+                List<Integer> combo = new ArrayList<>(k);
+                for (int n : nums) {
+                    combo.add(n);
+                }
+                if (isSumEqZero(combo)) {
+                    ans.add(combo);
+                }
             }
-            if (isSumEqZero(combo)) {
-                ans.add(combo);
-                return ans;
-            }
-        } else {
-            Arrays.sort(nums);
-            ArrayList<Integer> index = new ArrayList<>(nums.length);
-            for (int n : nums) {
-                index.add(n);
-            }
-            LinkedList<Integer> combo = new LinkedList<>();
-            AtomicInteger trackNum = new AtomicInteger(0);
-            backtrack(nums, 0, trackNum, ans, combo, k, target, index);
+            return ans;
         }
+
+        LinkedList<Integer> combo = new LinkedList<>();
+        AtomicInteger trackNum = new AtomicInteger(0);
+        backtrack(nums, 0, trackNum, ans, combo, k, target);
         return ans;
     }
 
-    private void backtrack(int[] nums, int start, AtomicInteger trackNum, List<List<Integer>> ans, LinkedList<Integer> track, int k, int target, ArrayList<Integer> index) {
+    private void backtrack(int[] nums, int start, AtomicInteger trackNum, List<List<Integer>> ans, LinkedList<Integer> track, int k, int target) {
+        if (start < nums.length && !canBeCalculated(nums, start, k - track.size(), target - trackNum.get())) {
+            return;
+        }
         if (k - track.size() == 2) {
             int left = target - trackNum.get();
             for (List<Integer> subset : twoSum(nums, left, start)) {
@@ -82,18 +84,6 @@ public class Solution_15 {
                 combo.addAll(subset);
                 ans.add(combo);
             }
-//            if (start < nums.length - 2) {
-//                Set<Integer> pool = new HashSet<>(index.subList(start, index.size()));
-//                if (pool.contains(left)) {
-//                    track.add(left);
-//                    ans.add(new ArrayList<>(track));
-//                    track.removeLast();
-//                }
-//            } else if (start == nums.length - 2 && (left & nums[start + 1]) == 0) {
-//                track.add(left);
-//                ans.add(new ArrayList<>(track));
-//                track.removeLast();
-//            }
         } else {
             for (int i = start; i < nums.length; i++) {
                 if (i > start && (nums[i - 1] ^ nums[i]) == 0) {
@@ -101,7 +91,7 @@ public class Solution_15 {
                 }
                 track.add(nums[i]);
                 trackNum.getAndAdd(nums[i]);
-                backtrack(nums, i + 1, trackNum, ans, track, k, target, index);
+                backtrack(nums, i + 1, trackNum, ans, track, k, target);
                 track.removeLast();
                 trackNum.set(trackNum.get() - nums[i]);
             }
@@ -132,6 +122,11 @@ public class Solution_15 {
         }
 
         return res;
+    }
+
+    public boolean canBeCalculated(int[] nums, int start, int k, int target) {
+        int avg = target / k;
+        return nums[start] <= avg && avg <= nums[nums.length - 1];
     }
 
     private boolean isValidCombo(List<List<Integer>> ans, ArrayList<Integer> combo) {
