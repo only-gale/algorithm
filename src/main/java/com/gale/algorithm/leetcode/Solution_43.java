@@ -28,7 +28,44 @@ package com.gale.algorithm.leetcode;
  * @since 2023/1/30 11:10
  */
 public class Solution_43 {
+
+    /**
+     * 使用乘法
+     *
+     * @see <a href="https://leetcode.cn/problems/multiply-strings/solution/zi-fu-chuan-xiang-cheng-by-leetcode-solution/">官方解法</a>
+     */
     public String multiply(String num1, String num2) {
+        if ("0".equals(num1) || "0".equals(num2)) {
+            return "0";
+        }
+        int l1 = num1.length(), l2 = num2.length(), ii, ij, tmp;
+        // 结果数组
+        int[] ansArr = new int[l1 + l2];
+
+        for (int i = l1 - 1; i >= 0; i--) {
+            ii = num1.charAt(i) - '0';
+            if (ii == 0) {
+                continue;
+            }
+            for (int j = l2 - 1; j >= 0; j--) {
+                ij = num2.charAt(j) - '0';
+                tmp = ii * ij;
+                if ((ansArr[i + j + 1] += tmp) >= 10) {
+                    ansArr[i + j] += ansArr[i + j + 1] / 10;
+                    ansArr[i + j + 1] = ansArr[i + j + 1] % 10;
+                }
+            }
+        }
+        // 结果字符串
+        StringBuilder ans = new StringBuilder();
+        // 清除前导0
+        for (int i = ansArr[0] == 0 ? 1 : 0; i < ansArr.length; i++) {
+            ans.append(ansArr[i]);
+        }
+        return ans.toString();
+    }
+
+    public String multiply_string(String num1, String num2) {
         if (num1.length() > num2.length()) {
             return multiply(num2, num1);
         }
@@ -60,7 +97,7 @@ public class Solution_43 {
     }
 
     public static void main(String[] args) {
-        String num1 = "123", num2 = "0";
+        String num1 = "7967", num2 = "7067";
         Solution_43 solution43 = new Solution_43();
         System.out.println(solution43.multiply(num1, num2));
     }
