@@ -57,6 +57,27 @@ public class Util {
         return head;
     }
 
+    public static ListNode assembleCircle(int[] nums, int joinPointIndex) {
+        if (isArrayEmpty(nums)) {
+            return null;
+        }
+        ListNode head = new ListNode(nums[0]), cur = head, joinPoint = null;
+        int l = nums.length;
+        for (int i = 1; i < l; i++) {
+            cur.next = new ListNode(nums[i]);
+            cur = cur.next;
+            if (i == joinPointIndex) {
+                joinPoint = cur;
+            }
+        }
+        if (joinPoint != null) {
+            cur.next = joinPoint;
+        } else if (joinPointIndex == 0) {
+            cur.next = head;
+        }
+        return head;
+    }
+
     public static ListNode assemble(int[] nums, int pos) {
         if (isArrayEmpty(nums)) {
             return null;
