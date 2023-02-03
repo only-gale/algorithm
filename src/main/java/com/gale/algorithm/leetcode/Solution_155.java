@@ -158,7 +158,7 @@ class Heapify {
             if (left < count && heap[left] > heap[index]) {
                 need2swap = left;
             }
-            // 有左子节点且左子节点值大于父节点，交换
+            // 有右子节点且右子节点值大于父节点，交换
             if (right < count && heap[right] > heap[need2swap]) {
                 need2swap = right;
             }
