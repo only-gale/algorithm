@@ -50,7 +50,36 @@ package com.gale.algorithm.leetcode;
  * @since 2023/2/2 10:00
  */
 public class Solution_1823 {
+
+    /**
+     * 约瑟夫环迭代求解：递归求解的逆向运算
+     * <p>约瑟夫环问题的递推公式： f(n)= (f(n - 1) + k - s) % n + 1 `s`开始起点数, `k`间隔数, `n`玩家个数</p>
+     * <p>通解： return s if n == 1 else (self.findTheWinner(n-1, k) + k - s) % n + s</p>
+     */
     public int findTheWinner(int n, int k) {
+        int winner = 1;
+        for (int i = 1; i <= n; i++) {
+            winner = ((winner + k - 1) % i) + 1;
+        }
+        return winner;
+    }
+
+    /**
+     * 约瑟夫环递归求解
+     * <p>约瑟夫环问题的递推公式： f(n)= (f(n - 1) + k - s) % n + 1 `s`开始起点数, `k`间隔数, `n`玩家个数</p>
+     * <p>通解： return s if n == 1 else (self.findTheWinner(n-1, k) + k - s) % n + s</p>
+     */
+    public int findTheWinner_recursion(int n, int k) {
+        if (n == 1) {
+            return 1;
+        }
+        return ((findTheWinner(n - 1, k) + k - 1) % n) + 1;
+    }
+
+    /**
+     * 暴力求解
+     */
+    public int findTheWinner_force(int n, int k) {
         int loser = 0, start = 0;
         int[] players = new int[n];
         for (int i = 0; i < n; i++) {
