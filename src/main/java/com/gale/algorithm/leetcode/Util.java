@@ -205,4 +205,16 @@ public class Util {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+
+    public static List<List<Integer>> assemble(int[][] board) {
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int[] b : board) {
+            ArrayList<Integer> arrayList = new ArrayList<>();
+            for (int n : b) {
+                arrayList.add(n);
+            }
+            ans.add(arrayList);
+        }
+        return ans;
+    }
 }
