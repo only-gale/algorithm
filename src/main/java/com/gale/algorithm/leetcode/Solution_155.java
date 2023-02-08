@@ -48,7 +48,7 @@ public class Solution_155 {
 
     public static void main(String[] args) {
         int[] nums = {4,2,8,5,3,2};
-        Heapify.HeapType heapType = Heapify.HeapType.LITTLE;
+        Heapify.HeapType heapType = Heapify.HeapType.BIGGER;
         System.out.printf("before %s heap sort:\n", heapType);
         System.out.println(Arrays.toString(nums));
         Heapify heapify = new Heapify(nums, heapType);
@@ -149,17 +149,18 @@ class Heapify {
      * @param index 待排序元素中最后一个非叶子节点在heap中的索引值
      */
     private void heapify(int[] heap, int count, int index) {
-        int need2swap = index;
+        int need2swap = index, left, right;
         while (true) {
             // 根据堆类型选择和index交换的索引
             // index的左右子节点
-            int left = (index << 1) + 1, right = (index << 1) + 2;
+            left = (index << 1) + 1;
+            right = left + 1;
             // 有左子节点且左子节点值大于父节点，交换
-            if (left < count && heap[left] > heap[index]) {
+            if (left < count && (HeapType.BIGGER == this.heapType ? heap[left] > heap[need2swap] : heap[left] < heap[need2swap])) {
                 need2swap = left;
             }
             // 有右子节点且右子节点值大于父节点，交换
-            if (right < count && heap[right] > heap[need2swap]) {
+            if (right < count && (HeapType.BIGGER == this.heapType ? heap[right] > heap[need2swap] : heap[right] < heap[need2swap])) {
                 need2swap = right;
             }
             // 不需要交换则退出
@@ -179,16 +180,10 @@ class Heapify {
         }
     }
 
-    private void buildBiggerHeap(int[] nums) {
-        for (int i = nums.length; i >= 1; i--) {
-            build(nums, i);
-        }
-    }
-
-    private void buildLittleHeap(int[] nums) {
+    private void buildHeap(int[] nums) {
         int len = nums.length;
         build(nums, len);
-        // 构造完后，堆顶（数组第一个元素）是最大值，需要将其沉到堆底（数组最后一个元素）
+        // 构造完后，堆顶（数组第一个元素）是最大/小值，需要将其沉到堆底（数组最后一个元素）
         for (int i = len - 1; i > 0; i--) {
             swap(nums, 0, i);
             heapify(nums, i, 0);
@@ -200,11 +195,7 @@ class Heapify {
         if (nums == null || nums.length <= 1) {
             return;
         }
-        if (this.heapType == HeapType.BIGGER) {
-            buildBiggerHeap(nums);
-        } else {
-            buildLittleHeap(nums);
-        }
+        buildHeap(this.heap);
     }
 
     public int[] getHeap() {
