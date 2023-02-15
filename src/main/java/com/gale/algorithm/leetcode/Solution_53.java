@@ -31,18 +31,23 @@ import java.util.*;
 public class Solution_53 {
     // 只返回最大子序列之和
     public static int maxSubArray(int[] nums) {
-        if (nums == null || nums.length < 1) {
+        // dp数组：dp[i]表示以nums[i]结尾的子序列之和
+//        int[] dp;
+
+        // l: 数组长度
+        // max: 最大子数组和
+        // pre: 由于dp数组中，dp[i]只和dp[i - 1]有关，所以用pre优化
+        int l, max, pre;
+
+        if (nums == null || (l = nums.length) < 1) {
             return 0;
         }
-        // 数组长度
-        int l = nums.length;
-        // dp数组：dp[i]表示以nums[i]结尾的子序列之和
-        int[] dp = new int[l];
-        dp[0] = nums[0];
-        int max = dp[0];
+
+        pre = nums[0];
+        max = nums[0];
         for (int i = 1; i < l; i++) {
-            dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
-            max = Math.max(dp[i], max);
+            pre = Math.max(pre + nums[i], nums[i]);
+            max = Math.max(pre, max);
         }
         return max;
     }
