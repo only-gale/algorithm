@@ -14,6 +14,8 @@ package com.gale.algorithm.leetcode;
  *     输入：height = [4,2,0,3,2,5]
  *     输出：9
  * </pre>
+ *
+ * @see <a href="https://leetcode.cn/problems/trapping-rain-water/">接雨水</a>
  */
 public class Solution_42 {
     public static int trap(int[] height) {
